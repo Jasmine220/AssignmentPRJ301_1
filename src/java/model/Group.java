@@ -8,14 +8,17 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Ngo Tung Son
+ * @author sonnt
  */
 public class Group {
     private int id;
     private String name;
+    private Subject subject; 
+    private Lecturer lecturer;
+    private ArrayList<Session> sessions = new ArrayList<>();
     private ArrayList<Student> students = new ArrayList<>();
-    private Subject subject;
-    private Lecturer supervisor;
+    private String sem;
+    private int year;
 
     public int getId() {
         return id;
@@ -33,14 +36,6 @@ public class Group {
         this.name = name;
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
-    }
-
     public Subject getSubject() {
         return subject;
     }
@@ -49,12 +44,44 @@ public class Group {
         this.subject = subject;
     }
 
-    public Lecturer getSupervisor() {
-        return supervisor;
+    public Lecturer getLecturer() {
+        return lecturer;
     }
 
-    public void setSupervisor(Lecturer supervisor) {
-        this.supervisor = supervisor;
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public ArrayList<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
+    }
+
+    public String getSem() {
+        return sem;
+    }
+
+    public void setSem(String sem) {
+        this.sem = sem;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
     
 }

@@ -5,9 +5,9 @@
 
 package controller.lecturer;
 
-import dal.model.LecturerDBContext;
-import dal.model.SessionDBContext;
-import dal.model.TimeSlotDBContext;
+import dal.LecturerDBContext;
+import dal.SessionDBContext;
+import dal.TimeSlotDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,10 +21,6 @@ import model.Session;
 import model.TimeSlot;
 import util.DateTimeHelper;
 
-/**
- *
- * @author Hello Ngo Tung Son handsome
- */
 public class TimetableController extends HttpServlet {
    
     /** 
@@ -68,7 +64,7 @@ public class TimetableController extends HttpServlet {
         request.setAttribute("slots", slots);
         
         SessionDBContext sesDB = new SessionDBContext();
-        ArrayList<Session> sessions = sesDB.filter(lid, from, to);
+        ArrayList<Session> sessions = sesDB.filterByLidAndDate(lid, from, to);
         request.setAttribute("sessions", sessions);
         
         LecturerDBContext lecDB = new LecturerDBContext();
@@ -78,7 +74,6 @@ public class TimetableController extends HttpServlet {
         request.getRequestDispatcher("../view/lecturer/timetable.jsp").forward(request, response);
         
     } 
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal.model;
+package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,52 +10,54 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Lecturer;
+import model.TimeSlot;
 
 /**
  *
- * @author Ngo Tung Son
+ * @author Administrator
  */
-public class LecturerDBContext extends dal.DBContext<Lecturer> {
+public class TimeSlotDBContext extends DBContext<TimeSlot>{
 
     @Override
-    public void insert(Lecturer model) {
+    public void insert(TimeSlot model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Lecturer model) {
+    public void update(TimeSlot model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(Lecturer model) {
+    public void delete(TimeSlot model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Lecturer get(int id) {
+    public TimeSlot get(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<TimeSlot> list() {
+        ArrayList<TimeSlot> slots = new ArrayList<>();
         try {
-            String sql = "SELECT lid,lname FROM Lecturer WHERE lid = ?";
+            String sql = "SELECT tid,[description] FROM TimeSlot";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            if(rs.next())
+            while(rs.next())
             {
-                Lecturer l = new Lecturer();
-                l.setId(rs.getInt("lid"));
-                l.setName(rs.getString("lname"));
-                return l;
+                TimeSlot slot = new TimeSlot();
+                slot.setId(rs.getInt("tid"));
+                slot.setDescription(rs.getString("description"));
+                slots.add(slot);
             }
+            
         } catch (SQLException ex) {
-            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TimeSlotDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return slots;
     }
-
-    @Override
-    public ArrayList<Lecturer> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
 }

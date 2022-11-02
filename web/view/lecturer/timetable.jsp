@@ -1,8 +1,4 @@
-<%-- 
-    Document   : timetable
-    Created on : Oct 15, 2022, 9:30:31 AM
-    Author     : Ngo Tung Son
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="helper" class="util.DateTimeHelper"/>
@@ -34,9 +30,9 @@
             border: 1px solid white;
         }
         .table tr{
-             border: 1px solid graytext;
+            border: 1px solid graytext;
         }
-        .week{
+        .weekdays{
             display: flex;
         }
         .container {
@@ -110,15 +106,9 @@
         <div class="table-responsive">
             <table class="table">
                 <tr>
-                    <th class="year">
-                        <strong>YEAR:</strong>
-                        <select>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                        </select>
+                    <th class="weekdays">
+                        <strong>WEEKDAYS</strong>
+
                     </th>
                     <c:forEach items="${requestScope.dates}" var="d">       
                         <th>${helper.getDayNameofWeek(d)}</th>
@@ -127,14 +117,8 @@
                 </tr>
                 <br>
                 <tr>
-                    <th class="week" >
-                        WEEK:<select>
-                            <option value="17/01-to-23/01">17/01 To 23/01</option>
-                            <option value="25/01-to-31/1">25/01 To 31/01</option>
-                            <option value="02/02-to-08/02">02/02 To 08/02</option>
-                            <option value="10/02-to-16/02">10/02 To 16/02</option>
-                            <option value="17/02-to-23/02">17/02 To 23/02</option>
-                        </select>
+                    <th class="weekdays" >
+                        DAY
                     </th>
                     <c:forEach items="${requestScope.dates}" var="d">
                         <th>
@@ -156,7 +140,9 @@
                                     <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
                                         <a href="att?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                         <br/>
-                                        ${ses.room.name}
+                                        at ${ses.room.name}
+                                        <br/>
+                                        <a href="url">Take attendance</a> || <a href="url">Status</a>
                                         <c:if test="${ses.attandated}">
                                             <div class="attendance attended">
                                                 (Attended)
@@ -171,7 +157,7 @@
 
                                 </c:forEach>
                             </td>
-                            
+
 
                         </c:forEach>
                     </tr>

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Ngo Tung Son
+ * @author sonnt
  */
 public class Session {
     private int id;
-    private Lecturer lecturer;
-    private Room room;
-    private TimeSlot timeslot;
-    private Date date;
     private Group group;
+    private Room room;
+    private Lecturer lecturer;
+    private TimeSlot slot;
+    private ArrayList<Attandance> atts = new ArrayList<>();
+    private Date date;
     private int index;
-    private boolean attandated; 
-    private ArrayList<Attandance> attandances = new ArrayList<>();
+    private boolean attanded;
 
     public int getId() {
         return id;
@@ -28,38 +28,6 @@ public class Session {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Lecturer getLecturer() {
-        return lecturer;
-    }
-
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public TimeSlot getTimeslot() {
-        return timeslot;
-    }
-
-    public void setTimeslot(TimeSlot timeslot) {
-        this.timeslot = timeslot;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Group getGroup() {
@@ -70,6 +38,46 @@ public class Session {
         this.group = group;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
+    public TimeSlot getSlot() {
+        return slot;
+    }
+
+    public void setSlot(TimeSlot slot) {
+        this.slot = slot;
+    }
+
+    public ArrayList<Attandance> getAtts() {
+        return atts;
+    }
+
+    public void setAtts(ArrayList<Attandance> atts) {
+        this.atts = atts;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public int getIndex() {
         return index;
     }
@@ -78,20 +86,12 @@ public class Session {
         this.index = index;
     }
 
-    public boolean isAttandated() {
-        return attandated;
+    public boolean isAttanded() {
+        return attanded;
     }
 
-    public void setAttandated(boolean attandated) {
-        this.attandated = attandated;
-    }
-
-    public ArrayList<Attandance> getAttandances() {
-        return attandances;
-    }
-
-    public void setAttandances(ArrayList<Attandance> attandances) {
-        this.attandances = attandances;
+    public void setAttanded(boolean attanded) {
+        this.attanded = attanded;
     }
     
 }

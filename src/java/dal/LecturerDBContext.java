@@ -2,62 +2,60 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dal.model;
+package dal;
 
-import dal.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.TimeSlot;
+import model.Lecturer;
 
 /**
  *
- * @author Ngo Tung Son
+ * @author Administrator
  */
-public class TimeSlotDBContext extends DBContext<TimeSlot> {
+public class LecturerDBContext extends DBContext<Lecturer>{
 
     @Override
-    public void insert(TimeSlot model) {
+    public void insert(Lecturer model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(TimeSlot model) {
+    public void update(Lecturer model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(TimeSlot model) {
+    public void delete(Lecturer model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public TimeSlot get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ArrayList<TimeSlot> list() {
-        ArrayList<TimeSlot> slots = new ArrayList<>();
+    public Lecturer get(int id) {
         try {
-            String sql = "SELECT tid,[description] FROM TimeSlot";
+            String sql = "SELECT lid,lname FROM Lecturer WHERE lid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            while(rs.next())
+            if(rs.next())
             {
-                TimeSlot slot = new TimeSlot();
-                slot.setId(rs.getInt("tid"));
-                slot.setDescription(rs.getString("description"));
-                slots.add(slot);
+                Lecturer l = new Lecturer();
+                l.setId(rs.getInt("lid"));
+                l.setName(rs.getString("lname"));
+                return l;
             }
-            
         } catch (SQLException ex) {
-            Logger.getLogger(TimeSlotDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return slots;
+        return null;
+    }
+
+    @Override
+    public ArrayList<Lecturer> list() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }
