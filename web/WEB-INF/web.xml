@@ -17,7 +17,7 @@
         <servlet-class>controller.student.DeleteController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LecturerTimetableController</servlet-name>
+        <servlet-name>timetablecontroller</servlet-name>
         <servlet-class>controller.lecturer.TimetableController</servlet-class>
     </servlet>
     <servlet>
@@ -25,8 +25,8 @@
         <servlet-class>controller.lecturer.AttController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>timetablecontroller</servlet-name>
-        <servlet-class>controller.lecturer.TimetableController</servlet-class>
+        <servlet-name>recordattendancecontroller</servlet-name>
+        <servlet-class>controller.lecturer.RecordAttendanceController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListStudentController</servlet-name>
@@ -45,16 +45,16 @@
         <url-pattern>/student/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LecturerTimetableController</servlet-name>
+        <servlet-name>timetablecontroller</servlet-name>
         <url-pattern>/lecturer/timetable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>attcontroller</servlet-name>
-        <url-pattern>/lecturer/attendance</url-pattern>
+        <url-pattern>/lecturer/attandance</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>timetablecontroller</servlet-name>
-        <url-pattern>/timetable</url-pattern>
+        <servlet-name>recordattendancecontroller</servlet-name>
+        <url-pattern>/lecturer/recordattendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

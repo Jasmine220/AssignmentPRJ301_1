@@ -65,15 +65,16 @@
     <body>
         <div class="header">
             <h1>Single activity Attendance</h1>
-            <p>
-                Attendance for <span>${requestScope.ses.group.name}</span> with lecturer <span>${requestScope.ses.lecturer.id}</span> at
-                slot ${requestScope.ses.slot.id} on ${requestScope.ses.slot.description} ${requestScope.ses.date}. Spring2022, in room ${requestScope.ses.room.id} at FU-HL
-            </p>
+            <p>Subject: <span>${requestScope.ses.group.subject.name}</span></p>
+            <p>Group: <span>${requestScope.ses.group.name}</span> </p>
+            <p>Lecturer: <span>${requestScope.ses.lecturer.name}</span> </p>
+            <p>Slot: <span>${requestScope.ses.slot.id}</span> on <span>${requestScope.ses.slot.description}</span> at <span>${requestScope.ses.date} </span>.</p>
+            <p>Room: <span>${requestScope.ses.room.name}</span></p>          
             <p>Attended: <span style="color: red;"> ${requestScope.ses.attanded?"Yes":"No"} </span></p>
         </div>
 
         <div class="container">   
-            <form action="takeatt" method="POST">
+            <form action="attandance" method="POST">
                 <input type="hidden" name="sesid" value="${param.id}"/>
                 <table>
                     <thead>
@@ -124,7 +125,7 @@
                                     <input type="text" name="description${attendance.student.id}" value="${attendance.description}">
                                 </td>
                                 <td>
-                                    ${attendance.session.lecturer.id}
+                                    ${attendance.session.lecturer.name}
                                 </td>
                                 <td>
                                     ${attendance.record_time}

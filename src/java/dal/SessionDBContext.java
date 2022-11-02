@@ -156,24 +156,24 @@ public class SessionDBContext extends DBContext<Session>{
 @Override
     public Session get(int id) {
         try {
-            String sql = "SELECT ses.sesid,ses.[index],ses.date,ses.attanded\n"
-                    + "	,g.gid,g.gname\n"
-                    + "	,r.rid,r.rname\n"
-                    + "	,t.tid,t.[description] tdescription\n"
-                    + "	,l.lid,l.lname\n"
-                    + "	,sub.subid,sub.subname\n"
-                    + "	,s.stdid,s.stdname\n"
-                    + "	,ISNULL(a.present,0) present, ISNULL(a.[description],'') [description]\n"
-                    + "		FROM [Session] ses\n"
-                    + "		INNER JOIN Room r ON r.rid = ses.rid\n"
-                    + "		INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
-                    + "		INNER JOIN Lecturer l ON l.lid = ses.lid\n"
-                    + "		INNER JOIN [Group] g ON g.gid = ses.gid\n"
-                    + "		INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
-                    + "		INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
-                    + "		INNER JOIN [Student] s ON s.stdid = sg.stdid\n"
-                    + "		LEFT JOIN Attandance a ON s.stdid = a.stdid AND ses.sesid = a.sesid\n"
-                    + "WHERE ses.sesid = ?";
+            String sql = "SELECT ses.sesid,ses.[index],ses.date,ses.attanded\n" +
+"                    ,g.gid,g.gname, g.sem, g.year\n" +
+"                    ,r.rid,r.rname\n" +
+"                    ,t.tid,t.[description] tdescription\n" +
+"                    ,l.lid,l.lname\n" +
+"                    ,sub.subid,sub.subname\n" +
+"                    ,s.stdid,s.stdname\n" +
+"                    ,ISNULL(a.present,0) present, ISNULL(a.[description],'') [description]\n ,a.record_time" +
+"                    FROM [Session] ses\n" +
+"                    INNER JOIN Room r ON r.rid = ses.rid\n" +
+"                    INNER JOIN TimeSlot t ON t.tid = ses.tid\n" +
+"                    INNER JOIN Lecturer l ON l.lid = ses.lid\n" +
+"                    INNER JOIN [Group] g ON g.gid = ses.gid\n" +
+"                    INNER JOIN [Subject] sub ON sub.subid = g.subid\n" +
+"                    INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n" +
+"                    INNER JOIN [Student] s ON s.stdid = sg.stdid\n" +
+"                    LEFT JOIN Attandance a ON s.stdid = a.stdid AND ses.sesid = a.sesid\n" +
+"                    WHERE ses.sesid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -181,6 +181,7 @@ public class SessionDBContext extends DBContext<Session>{
             while (rs.next()) {
                 if (ses == null) {
                     ses = new Session();
+                    //set room
                     Room r = new Room();
                     r.setId(rs.getInt("rid"));
                     r.setName(rs.getString("rname"));
@@ -190,25 +191,30 @@ public class SessionDBContext extends DBContext<Session>{
                     t.setId(rs.getInt("tid"));
                     t.setDescription(rs.getString("tdescription"));
                     ses.setSlot(t);
-
+                    //set lecturer
                     Lecturer l = new Lecturer();
                     l.setId(rs.getInt("lid"));
                     l.setName(rs.getString("lname"));
                     ses.setLecturer(l);
-
+                    //set group
                     Group g = new Group();
                     g.setId(rs.getInt("gid"));
                     g.setName(rs.getString("gname"));
+                    g.setSem(rs.getString("sem"));
+                    g.setYear(rs.getInt("year"));
                     ses.setGroup(g);
-
+                    //set subject
                     Subject sub = new Subject();
                     sub.setId(rs.getInt("subid"));
                     sub.setName(rs.getString("subname"));
                     g.setSubject(sub);
-
+                    //set date
                     ses.setDate(rs.getDate("date"));
+                    //set index
                     ses.setIndex(rs.getInt("index"));
+                    //set attandance
                     ses.setAttanded(rs.getBoolean("attanded"));
+                    
                 }
                 //read student
                 Student s = new Student();
@@ -220,6 +226,7 @@ public class SessionDBContext extends DBContext<Session>{
                 a.setSession(ses);
                 a.setPresent(rs.getBoolean("present"));
                 a.setDescription(rs.getString("description"));
+                a.setRecord_time(rs.getTimestamp("record_time"));
                 ses.getAtts().add(a);
             }
             return ses;
@@ -228,6 +235,7 @@ public class SessionDBContext extends DBContext<Session>{
         }
         return null;
     }
+
 
     @Override
     public ArrayList<Session> list() {
