@@ -14,9 +14,9 @@ import model.Lecturer;
 
 /**
  *
- * @author Administrator
+ * @author Ngo Tung Son
  */
-public class LecturerDBContext extends DBContext<Lecturer>{
+public class LecturerDBContext extends dal.DBContext<Lecturer> {
 
     @Override
     public void insert(Lecturer model) {

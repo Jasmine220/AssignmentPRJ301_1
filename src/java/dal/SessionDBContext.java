@@ -25,7 +25,65 @@ import model.TimeSlot;
  * @author Administrator
  */
 public class SessionDBContext extends DBContext<Session>{
-  public ArrayList<Session> filterByLidAndDate(int lid, Date from, Date to) {
+     public ArrayList<Session> filterByGidAndLid(int gid, int lid) {
+        ArrayList<Session> sessions = new ArrayList<>();
+        try {
+
+            String sql = "SELECT ses.sesid, g.gid, ses.rid, ses.[date], ses.tid, ses.[index], ses.lid, ses.attanded, g.gname,\n"
+                    + "g.subid, g.sem, g.[year], s.stdid, s.stdname, sub.subname, t.description, r.rname, l.lname\n"
+                    + "FROM [Session] ses INNER JOIN [Group] g ON ses.gid = g.gid\n"
+                    + "INNER JOIN Student_Group stg on g.gid = stg.gid\n"
+                    + "INNER JOIN Student s ON stg.stdid = s.stdid\n"
+                    + "INNER JOIN [Subject] sub ON g.subid = sub.subid\n"
+                    + "INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
+                    + "INNER JOIN Room r ON r.rid = ses.rid\n"
+                    + "INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "where ses.gid = ? and ses.lid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, gid);
+            stm.setInt(2, lid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                Group group = new Group();
+                Subject subject = new Subject();
+                Room room = new Room();
+                TimeSlot timeslot = new TimeSlot();
+                Lecturer lecturer = new Lecturer();
+                //id
+                session.setId(rs.getInt("sesid"));
+                //group
+                group.setId(rs.getInt("gid"));
+                group.setName(rs.getString("gname"));
+                session.setGroup(group);
+                //room
+                room.setId(rs.getInt("rid"));
+                room.setName(rs.getString("rname"));
+                session.setRoom(room);
+                //lecturer
+                lecturer.setId(rs.getInt("lid"));
+                lecturer.setName(rs.getString("lname"));
+                session.setLecturer(lecturer);
+                //slot
+                timeslot.setId(rs.getInt("tid"));
+                timeslot.setDescription(rs.getString("description"));
+                session.setSlot(timeslot);
+                //date
+                session.setDate(rs.getDate("date"));
+                //index
+                session.setIndex(rs.getInt("index"));
+                //attanded
+                session.setAttanded(rs.getBoolean("attanded"));
+                sessions.add(session);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sessions;
+
+    }
+    public ArrayList<Session> filterByLidAndDate(int lid, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
             String sql = "SELECT  \n"
@@ -90,6 +148,7 @@ public class SessionDBContext extends DBContext<Session>{
         }
         return sessions;
     }
+
     @Override
     public void insert(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
