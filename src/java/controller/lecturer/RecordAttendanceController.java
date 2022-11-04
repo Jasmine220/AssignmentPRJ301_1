@@ -4,6 +4,7 @@
  */
 package controller.lecturer;
 
+import controller.auth.BaseRoleController;
 import dal.GroupDBContext;
 import dal.SessionDBContext;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import model.Account;
 import model.Group;
 import model.Session;
 
@@ -19,17 +21,7 @@ import model.Session;
  *
  * @author Administrator
  */
-public class RecordAttendanceController extends HttpServlet {
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
-    }
+public class RecordAttendanceController extends BaseRoleController {
 
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int subid = Integer.parseInt(req.getParameter("subid"));
@@ -39,6 +31,16 @@ public class RecordAttendanceController extends HttpServlet {
         Group group = DBGroup.get(gid, subid, lid);
         req.setAttribute("group", group);
         req.getRequestDispatcher("/view/lecturer/recordattendance.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void processPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    processRequest(req, resp);
+    }
+
+    @Override
+    protected void processGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+    processRequest(req, resp);
     }
 
 }

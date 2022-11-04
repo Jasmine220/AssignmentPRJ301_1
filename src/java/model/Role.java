@@ -11,16 +11,16 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class Role {
-    private String id;
+    private int id;
     private String name;
     private ArrayList<Feature> features = new ArrayList<>();
     private ArrayList<Account> accounts = new ArrayList<>();
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
