@@ -27,6 +27,7 @@ public class LoginController extends HttpServlet{
         Account account = accountDB.get(username, password);
         //if account not valid
         if(account == null){
+
             resp.sendRedirect("login");
         }
         else{

@@ -32,8 +32,8 @@ public class AccountDBContext extends DBContext<Account> {
                     + "  LEFT JOIN [Role] r ON ar.rolid = r.rolid\n"
                     + "  LEFT JOIN Role_Feature rf ON r.rolid = rf.rolid\n"
                     + "  LEFT JOIN  Feature f ON rf.fid = f.fid\n"
-                    + "  WHERE a.username = '?' and \n"
-                    + "        a.[password] = '?'";
+                    + "  WHERE a.[username] = ? and \n"
+                    + "        a.[password] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);

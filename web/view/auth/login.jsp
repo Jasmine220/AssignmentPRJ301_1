@@ -15,7 +15,8 @@
         <form action="login" method="POST">
             Username: <input type="text" name="username" placeholder="Username"/> <br/>
             Password: <input type="password" name="password" placeholder="Password"/> <br/>
-            <button  type="submit">Login</button>
+<!--            <button  type="submit">Login</button>-->
+<input type="submit" value="Login">
         </form>
     </body>
 </html>

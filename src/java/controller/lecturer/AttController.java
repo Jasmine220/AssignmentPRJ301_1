@@ -28,7 +28,7 @@ public class AttController extends BaseRoleController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    /**
+     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
