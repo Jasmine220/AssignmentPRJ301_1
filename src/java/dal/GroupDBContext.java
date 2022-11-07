@@ -58,7 +58,7 @@ public class GroupDBContext extends DBContext<Group> {
             group.setName(name);
             //set students 
             StudentDBContext DBStudent = new StudentDBContext();
-            ArrayList<Student> students = DBStudent.list(gid);
+            ArrayList<Student> students = DBStudent.getStudentsByGid(gid);
             group.setStudents(students);
             return group;
 

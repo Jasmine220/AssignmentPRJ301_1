@@ -18,7 +18,26 @@ import model.Student;
  */
 public class StudentDBContext extends DBContext<Student> {
 
-    public ArrayList<Student> list(int gid) {
+    public Student getStudentByStdid(int stdid) {
+        try {
+            String sql = "SELECT stdid,stdname FROM Student WHERE stdid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, stdid);
+            ResultSet rs = stm.executeQuery();
+            //get student
+            Student student = new Student();
+            while (rs.next()) {
+                student.setId(rs.getInt("stdid"));
+                student.setName(rs.getString("stdname"));
+            }
+            return student;
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Student> getStudentsByGid(int gid) {
         try {
             String sql = "SELECT DISTINCT s.stdid,s.stdname\n"
                     + "                    FROM [Session] ses\n"
@@ -31,7 +50,7 @@ public class StudentDBContext extends DBContext<Student> {
             ResultSet rs = stm.executeQuery();
             //get students
             ArrayList<Student> students = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getInt("stdid"));
                 student.setName(rs.getString("stdname"));

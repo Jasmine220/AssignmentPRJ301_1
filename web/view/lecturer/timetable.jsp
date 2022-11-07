@@ -143,7 +143,7 @@
                                         at ${ses.room.name}
                                         <br/>
                                         <a href="attandance?id=${ses.id}">Take attendance</a> ||
-                                        <a href="recordattendance?subid=${ses.group.subject.id}&lid=${ses.group.lecturer.id}&gid=${ses.group.id}">Status</a>
+                                        <a href="recordattendance?subid=${ses.group.subject.id}&lid=${ses.lecturer.id}&gid=${ses.group.id}">Status</a>
                                         <c:if test="${ses.attanded}">
                                             <div class="attendance attended">
                                                 (Attended)

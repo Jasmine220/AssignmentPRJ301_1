@@ -24,8 +24,9 @@ import model.TimeSlot;
  *
  * @author Administrator
  */
-public class SessionDBContext extends DBContext<Session>{
-     public ArrayList<Session> filterByGidAndLid(int gid, int lid) {
+public class SessionDBContext extends DBContext<Session> {
+
+    public ArrayList<Session> filterByGidAndLid(int gid, int lid) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
 
@@ -83,6 +84,70 @@ public class SessionDBContext extends DBContext<Session>{
         return sessions;
 
     }
+
+    public ArrayList<Session> getSessionsForStudent(int stdid, Date from, Date to) {
+        try {
+            ArrayList<Session> sessions = new ArrayList<>();
+            String sql = "SELECT  ses.sesid, ses.tid, t.[description], \n"
+                    + "      ses.rid, r.rname, ses.lid, ses.[index],\n"
+                    + "	  ses.gid, g.gname, sub.subid, sub.subname, ses.[date],\n"
+                    + "	  st.stdid, st.stdname, ses.attanded"
+                    + "  FROM [Session] ses\n"
+                    + "  left join [TimeSlot] t on t.tid = ses.tid\n"
+                    + "  left join [Room] r on r.rid = ses.rid\n"
+                    + "  left join [Group] g on ses.gid = g.gid\n"
+                    + "  left join [Subject] sub on sub.subid = g.subid\n"
+                    + "  left join [Student_Group] sg on sg.gid = g.gid\n"
+                    + "  left join [Student] st on st.stdid = sg.stdid\n"
+                    + "  where st.stdid = ? and ses.[date] >= ? \n"
+                    + "  and ses.[date] <= ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, stdid);
+            stm.setDate(2, from);
+            stm.setDate(3, to);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Session session = new Session();
+                Student std = new Student();
+                Room r = new Room();
+                Group g = new Group();
+                TimeSlot t = new TimeSlot();
+                Subject sub = new Subject();
+
+                session.setId(rs.getInt("sesid"));
+                session.setDate(rs.getDate("date"));
+                session.setIndex(rs.getInt("index"));
+                session.setAttanded(rs.getBoolean("attanded"));
+
+                std.setId(rs.getInt("stdid"));
+                std.setName(rs.getString("stdname"));
+                g.getStudents().add(std);
+
+                g.setId(rs.getInt("gid"));
+                g.setName(rs.getString("gname"));
+                session.setGroup(g);
+
+                sub.setId(rs.getInt("subid"));
+                sub.setName(rs.getString("subname"));
+                g.setSubject(sub);
+
+                r.setId(rs.getInt("rid"));
+                r.setName(rs.getString("rname"));
+                session.setRoom(r);
+
+                t.setId(rs.getInt("tid"));
+                t.setDescription(rs.getString("description"));
+                session.setSlot(t);
+
+                sessions.add(session);
+            }
+            return sessions;
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public ArrayList<Session> filterByLidAndDate(int lid, Date from, Date to) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {
@@ -149,13 +214,12 @@ public class SessionDBContext extends DBContext<Session>{
         return sessions;
     }
 
-
     @Override
     public void insert(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-     @Override
+    @Override
     public void update(Session model) {
         try {
             connection.setAutoCommit(false);
@@ -213,27 +277,28 @@ public class SessionDBContext extends DBContext<Session>{
     public void delete(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-@Override
+
+    @Override
     public Session get(int id) {
         try {
-            String sql = "SELECT ses.sesid,ses.[index],ses.date,ses.attanded\n" +
-"                    ,g.gid,g.gname, g.sem, g.year\n" +
-"                    ,r.rid,r.rname\n" +
-"                    ,t.tid,t.[description] tdescription\n" +
-"                    ,l.lid,l.lname\n" +
-"                    ,sub.subid,sub.subname\n" +
-"                    ,s.stdid,s.stdname\n" +
-"                    ,ISNULL(a.present,0) present, ISNULL(a.[description],'') [description]\n ,a.record_time" +
-"                    FROM [Session] ses\n" +
-"                    INNER JOIN Room r ON r.rid = ses.rid\n" +
-"                    INNER JOIN TimeSlot t ON t.tid = ses.tid\n" +
-"                    INNER JOIN Lecturer l ON l.lid = ses.lid\n" +
-"                    INNER JOIN [Group] g ON g.gid = ses.gid\n" +
-"                    INNER JOIN [Subject] sub ON sub.subid = g.subid\n" +
-"                    INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n" +
-"                    INNER JOIN [Student] s ON s.stdid = sg.stdid\n" +
-"                    LEFT JOIN Attandance a ON s.stdid = a.stdid AND ses.sesid = a.sesid\n" +
-"                    WHERE ses.sesid = ?";
+            String sql = "SELECT ses.sesid,ses.[index],ses.date,ses.attanded\n"
+                    + "                    ,g.gid,g.gname, g.sem, g.year\n"
+                    + "                    ,r.rid,r.rname\n"
+                    + "                    ,t.tid,t.[description] tdescription\n"
+                    + "                    ,l.lid,l.lname\n"
+                    + "                    ,sub.subid,sub.subname\n"
+                    + "                    ,s.stdid,s.stdname\n"
+                    + "                    ,ISNULL(a.present,0) present, ISNULL(a.[description],'') [description]\n ,a.record_time"
+                    + "                    FROM [Session] ses\n"
+                    + "                    INNER JOIN Room r ON r.rid = ses.rid\n"
+                    + "                    INNER JOIN TimeSlot t ON t.tid = ses.tid\n"
+                    + "                    INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "                    INNER JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "                    INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                    + "                    INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
+                    + "                    INNER JOIN [Student] s ON s.stdid = sg.stdid\n"
+                    + "                    LEFT JOIN Attandance a ON s.stdid = a.stdid AND ses.sesid = a.sesid\n"
+                    + "                    WHERE ses.sesid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
@@ -274,7 +339,7 @@ public class SessionDBContext extends DBContext<Session>{
                     ses.setIndex(rs.getInt("index"));
                     //set attandance
                     ses.setAttanded(rs.getBoolean("attanded"));
-                    
+
                 }
                 //read student
                 Student s = new Student();
@@ -296,10 +361,9 @@ public class SessionDBContext extends DBContext<Session>{
         return null;
     }
 
-
     @Override
     public ArrayList<Session> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
 }
