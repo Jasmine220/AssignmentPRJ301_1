@@ -6,16 +6,12 @@ package controller.lecturer;
 
 import controller.auth.BaseRoleController;
 import dal.GroupDBContext;
-import dal.SessionDBContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import model.Account;
 import model.Group;
-import model.Session;
 
 /**
  *

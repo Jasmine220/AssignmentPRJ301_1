@@ -137,7 +137,9 @@
                         <c:forEach items="${requestScope.dates}" var="d">
                             <td>
                                 <c:forEach items="${requestScope.sessions}" var="ses" >
+                                   
                                     <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
+                                        
                                         <a href="att?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                         <br/>
                                         at ${ses.room.name}
@@ -147,11 +149,13 @@
                                             <div class="attendance attended">
                                                 (Attended)
                                             </div>
+                                           
                                         </c:if>
                                         <c:if test="${!ses.attandated}">
                                             <div class="attendance not-yet">
                                                 (<font color="red">Not yet</font>)
                                             </div>
+                                           
                                         </c:if>
                                     </c:if>
 

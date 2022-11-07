@@ -149,6 +149,7 @@ public class SessionDBContext extends DBContext<Session>{
         return sessions;
     }
 
+
     @Override
     public void insert(Session model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
