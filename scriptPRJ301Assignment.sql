@@ -1,7 +1,7 @@
 USE [master]
 GO
 
-/****** Object:  Database [PRJ301_FALL2022_Assignment]    Script Date: 11/8/2022 8:11:01 PM ******/
+/****** Object:  Database [PRJ301_FALL2022_Assignment]    Script Date: 11/8/2022 11:53:41 PM ******/
 CREATE DATABASE [PRJ301_FALL2022_Assignment]
  CONTAINMENT = NONE
  ON  PRIMARY 
