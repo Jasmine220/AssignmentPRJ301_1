@@ -120,6 +120,7 @@
                                                checked="checked"
                                            </c:if>
                                            name="present${attendance.student.id}"
+                                           value="absent"
                                            >
                                     <label>Absent</label>
                                     </c:if>
@@ -141,6 +142,7 @@
                                                checked="checked";
                                            </c:if>
                                            name="present${attendance.student.id}"
+                                           value="present"
                                            >
                                     <label>Present</label>
                                     </c:if>

@@ -299,18 +299,18 @@ public class SessionDBContext extends DBContext<Session> {
 
             //insert new attandances
             for (Attandance att : model.getAtts()) {
-                sql = "INSERT INTO [Attandance]\n"
-                        + "           ([sesid]\n"
-                        + "           ,[stdid]\n"
-                        + "           ,[present]\n"
-                        + "           ,[description]\n"
-                        + "           ,[record_time])\n"
-                        + "     VALUES\n"
-                        + "           (?\n"
-                        + "           ,?\n"
-                        + "           ,?\n"
-                        + "           ,?\n"
-                        + "           ,GETDATE())";
+                sql = "INSERT INTO [Attandance]\n" +
+"                                   ([sesid]\n" +
+"                                   ,[stdid]\n" +
+"                                   ,[present]\n" +
+"                                   ,[description]\n" +
+"                                   ,[record_time])\n" +
+"                             VALUES\n" +
+"                                   (?\n" +
+"                                   ,?\n" +
+"                                   ,?\n" +
+"                                   ,?\n" +
+"                                   ,GETDATE())";
                 PreparedStatement stm_insert = connection.prepareStatement(sql);
                 stm_insert.setInt(1, model.getId());
                 stm_insert.setInt(2, att.getStudent().getId());
