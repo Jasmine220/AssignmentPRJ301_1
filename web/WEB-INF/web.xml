@@ -44,6 +44,10 @@
         <servlet-name>recordattendancecontroller_student</servlet-name>
         <servlet-class>controller.student.RecordAttendanceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>homecontroller_student</servlet-name>
+        <servlet-class>controller.student.HomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListStudentController</servlet-name>
         <url-pattern>/student/list</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>recordattendancecontroller_student</servlet-name>
         <url-pattern>/student/recordattendance</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homecontroller_student</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
