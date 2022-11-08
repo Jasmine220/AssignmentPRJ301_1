@@ -81,6 +81,8 @@
                                                 <table summary='Select a course'>
                                                     <thead>
                                                         <tr>
+
+                                                            <th scope='col'>Term</th>
                                                             <th scope='col'>Course</th>
                                                         </tr>
                                                     </thead>
@@ -89,16 +91,20 @@
                                                             <td valign='top'>
                                                                 <div >
                                                                     <table>
-                                                                        <tr>
-                                                                            <td><a href="recordattendance?subid=${ses.group.subject.id}&stdid=${sessionScope.account.id}">Statistics and Probability<br> 
-                                                                                    (MAS291)(SE1643,start 05/09/2022)</a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td><a href="recordattendance?subid=${ses.group.subject.id}&stdid=${sessionScope.account.id}">Java Web Application Development<br>
-                                                                                    (PRJ301)</a>(SE1643,start 05/09/2022)
-                                                                            </td>
-                                                                        </tr>
+                                                                        
+
+                                                                            <c:forEach items="${requestScope.groups}" var="g">
+                                                                                <tr>
+                                                                                <td>${g.sem}${g.year}</td>
+
+                                                                                <td><a href="recordattendance?subid=${g.subject.id}&stdid=${account.id}">${g.subject.name}<br> 
+                                                                                    </a>
+                                                                                </td>  
+                                                                                </tr>
+                                                                            </c:forEach>
+
+                                                                        
+
 
                                                                     </table>
                                                                 </div>
@@ -125,7 +131,7 @@
                                                     <tbody>
                                                         <c:forEach items="${requestScope.sessions}" var="ses" varStatus="loop">
                                                             <tr>
-                                                               
+
                                                                 <td>${loop.index+1}</td>
                                                                 <td><span class='label label-primary'>${ses.date}</span></td>
                                                                 <td>
@@ -151,7 +157,7 @@
                                                                         <font color="black">Future</font>
                                                                     </td>
                                                                 </c:if>
-                                                                    <td>${ses.atts.get(0).description}</td>
+                                                                <td>${ses.atts.get(0).description}</td>
                                                             </tr>
                                                         </c:forEach>
 

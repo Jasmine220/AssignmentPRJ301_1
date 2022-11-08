@@ -27,6 +27,9 @@ public class RecordAttendanceController extends BaseRoleController {
         int stdid = Integer.parseInt(req.getParameter("stdid"));
         SessionDBContext sessionDB = new SessionDBContext();
         ArrayList<Session> sessions = sessionDB.getStatusForStudent(subid, stdid);
+        GroupDBContext groupDB = new GroupDBContext();
+        ArrayList<Group> groups = groupDB.getGroupsForStudent(stdid);
+        req.setAttribute("groups", groups);
         req.setAttribute("sessions", sessions);
         req.getRequestDispatcher("/view/student/recordattendance.jsp").forward(req, resp);
 
