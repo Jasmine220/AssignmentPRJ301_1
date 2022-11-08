@@ -39,9 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="student/timetable">Time table</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -52,7 +50,6 @@
         <section class="py-5 text-center">
             <div class="container"> 
                 <h2 class="text-center">STUDENT</h2>
-                <p class="text-muted mb-5 text-center">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
 
             </div>
         </section>
