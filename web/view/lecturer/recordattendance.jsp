@@ -41,6 +41,18 @@
             height: 15px;
             width: 15px;
         }
+            .report {
+        text-align: center;
+        border-collapse: collapse;
+    }
+
+    .report th, .report td {
+        border: 1px solid gray;
+    }
+
+    .report td {
+        padding: 0.5rem 0.8rem;
+    }
     </style>
     <body>
         <div class="header">
@@ -56,7 +68,7 @@
 
     </div>
     <div class="content">
-        <table>
+        <table class="report">
             <thead>
                 <tr>
                     <th rowspan="2">NO</th>

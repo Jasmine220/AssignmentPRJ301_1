@@ -25,11 +25,11 @@
         #campus{
             color: #808080;
         }
-        .table tr th{
+        table tr th{
             background-color: #6b90da;
             border: 1px solid white;
         }
-        .table tr{
+        table tr{
             border: 1px solid graytext;
         }
         .weekdays{
@@ -77,18 +77,7 @@
     <body>
         <form action="timetable" method="GET">
             <div class="header">
-                <!-- <div class="campus"> -->
-                <label for="">Campus:</label>
-                <select name="campus" id="campus">
-                    <option value="select-campus">Select Campus</option>
-                    <option value="fu-hl">FU-HL</option>
-                    <option value="fu-hcm">FU-HCM</option>
-                    <option value="fu-dn">FU-DN</option>
-                    <option value="fu-ct">FU-CT</option>
-                    <option value="fu-qn">FU-QN</option>
-                </select>
-                <br />
-                <!-- </div> -->
+                
                 <!-- <div class="lecturer"> -->
                 <label for="">Student:</label>
                 <input type="text" readonly="readonly" value="${requestScope.student.name}"/>
@@ -104,7 +93,7 @@
         </form>
         <div class="container">
             <div class="table-responsive">
-                <table class="table">
+                <table border="(0.5)px solid lightgray">
                     <tr>
                         <th class="weekdays">
                             <strong>WEEKDAYS</strong>

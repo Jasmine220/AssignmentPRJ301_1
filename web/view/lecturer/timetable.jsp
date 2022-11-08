@@ -10,9 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     </head>
     <style>
 
+        
         .header{
             text-align: center;
             margin-top: 1rem;
@@ -21,7 +25,7 @@
             margin-left: 2%;
             width: 95%;
             height: 100%;
-            
+            margin-bottom: 3%;
             
         }
         #campus{
@@ -77,6 +81,36 @@
         }
     </style>
     <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <c:if test="${sessionScope.account ne null}">
+            
+                <a class="navbar-brand" href="#">Hello ${sessionScope.account.displayname}</a>
+                </c:if>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="home">Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="timetable?lid=${sessionScope.account.id}">Time table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <form action="timetable" method="GET">
             <div class="header">                
                 <!-- <div class="lecturer"> -->
@@ -129,11 +163,11 @@
                             <td>
                                 <c:forEach items="${requestScope.sessions}" var="ses" >
                                     <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.slot.id eq slot.id)}">
-                                        <a href="att?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
+                                        <a href="attandance?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                         <br/>
                                         at ${ses.room.name}
                                         <br/>
-                                        <a href="attandance?id=${ses.id}">Take attendance</a> ||
+                                        
                                         <a href="recordattendance?subid=${ses.group.subject.id}&lid=${ses.lecturer.id}&gid=${ses.group.id}">Status</a>
                                         <c:if test="${ses.attanded}">
                                             <div class="attendance attended">
