@@ -33,7 +33,6 @@ public class RecordAttendanceController extends BaseRoleController {
     protected void processPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
     processRequest(req, resp);
     }
-
     @Override
     protected void processGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
     processRequest(req, resp);

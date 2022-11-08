@@ -99,8 +99,9 @@
                 <input type="date" name="to" value="${requestScope.to}"/>
                 <input type="submit" value="View" />
                 <!-- </div> -->
+         </div>
         </form>
-    </div>
+   
 
     <div class="container">
         <div class="table-responsive">

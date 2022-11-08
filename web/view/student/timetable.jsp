@@ -139,7 +139,7 @@
 
                                     <c:forEach items="${requestScope.sessions}" var="ses" >
                                         <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.slot.id eq slot.id)}">
-                                            <a href="att?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
+                                            <a href="recordattendance?subid=${ses.group.subject.id}&stdid=${sessionScope.account.id}">${ses.group.name}-${ses.group.subject.name}</a>
                                             <br/>
                                             at ${ses.room.name}
                                             <br/>

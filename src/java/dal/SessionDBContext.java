@@ -26,6 +26,69 @@ import model.TimeSlot;
  */
 public class SessionDBContext extends DBContext<Session> {
 
+    public ArrayList<Session> getStatusForStudent(int subid, int stdid) {
+        
+        try {
+            ArrayList<Session> sessions = new ArrayList<>();
+            String sql = "SELECT s.stdname, s.stdid, ses.[date],ses.[index], ses.tid, t.[description], r.rname,\n"
+                    + "	l.lname, g.gname, ses.attanded,isnull(a.[description],'') [description] \n,a.present"
+                    + "  FROM [Session] ses  \n"
+                    + "  inner join [Group] g on ses.gid = g.gid\n"
+                    + "  inner join [Subject] sub on sub.subid = g.subid\n"
+                    + "  inner join [Student_Group] sg on sg.gid = g.gid\n"
+                    + "  inner join [Student] s on sg.stdid = s.stdid\n"
+                    + "  inner join [TimeSlot] t on t.tid = ses.tid\n"
+                    + "  inner join [Room] r on r.rid = ses.rid\n"
+                    + "  inner join [Lecturer] l on l.lid = ses.lid\n"
+                    + " left join [Attandance] a on a.sesid = ses.sesid and s.stdid = a.stdid\n"
+                    + "  where sub.subid = ? and s.stdid = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, subid);
+            stm.setInt(2, stdid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                Session ses= new Session();
+                Group g = new Group();
+                Subject sub = new Subject();
+                Student std= new Student();
+                TimeSlot t = new TimeSlot();
+                Room r = new Room();
+                Lecturer l = new Lecturer();
+                Attandance a = new Attandance();
+                //set student
+                std.setId(rs.getInt("stdid"));
+                std.setName(rs.getString("stdname"));
+                g.getStudents().add(std);
+                //set group
+                g.setName(rs.getString("gname"));
+                ses.setGroup(g);
+                //set session(date)(index)(attendance)
+                ses.setDate(rs.getDate("date"));
+                ses.setIndex(rs.getInt("index"));
+                ses.setAttanded(rs.getBoolean("attanded"));
+                //set slot
+                t.setId(rs.getInt("tid"));
+                t.setDescription(rs.getString(6));
+                ses.setSlot(t);
+                //set room
+                r.setName(rs.getString("rname"));
+                ses.setRoom(r);
+                //set lecturer
+                l.setName(rs.getString("lname"));
+                ses.setLecturer(l);
+                //set attandance(description)
+                a.setDescription(rs.getString(11));
+                a.setPresent(rs.getBoolean("present"));
+                ses.getAtts().add(a);
+                sessions.add(ses);
+            }
+            return sessions;
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public ArrayList<Session> filterByGidAndLid(int gid, int lid) {
         ArrayList<Session> sessions = new ArrayList<>();
         try {

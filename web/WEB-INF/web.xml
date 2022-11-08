@@ -40,6 +40,10 @@
         <servlet-name>timetablecontroller_student</servlet-name>
         <servlet-class>controller.student.TimeTableController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>recordattendancecontroller_student</servlet-name>
+        <servlet-class>controller.student.RecordAttendanceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListStudentController</servlet-name>
         <url-pattern>/student/list</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>timetablecontroller_student</servlet-name>
         <url-pattern>/student/timetable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>recordattendancecontroller_student</servlet-name>
+        <url-pattern>/student/recordattendance</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
