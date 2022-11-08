@@ -55,14 +55,13 @@ public class GroupDBContext extends DBContext<Group> {
 
     public Group get(int gid, int subid, int lid) {
         try {
-            String sql = "SELECT distinct ses.sesid, g.sem, g.[year]\n"
-                    + "  FROM [Session] ses\n"
-                    + "  LEFT JOIN [Group] g ON ses.gid = g.gid\n"
-                    + "  INNER JOIN Student_Group sg ON sg.gid = g.gid\n"
-                    + "  INNER JOIN Student s ON s.stdid = sg.stdid\n"
-                    + "  INNER JOIN Lecturer l ON l.lid = g.lid\n"
-                    + "  INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
-                    + "  WHERE g.gid = ? and sub.subid = ? and l.lid = ?";
+            String sql = "SELECT distinct ses.sesid, g.sem, g.[year], g.gid, sub.subid, ses.lid\n" +
+"                     FROM [Session] ses\n" +
+"                     inner JOIN [Group] g ON ses.gid = g.gid\n" +
+"                     INNER JOIN Student_Group sg ON sg.gid = g.gid\n" +
+"                     INNER JOIN Student s ON s.stdid = sg.stdid\n" +
+"                     INNER JOIN [Subject] sub ON sub.subid = g.subid\n" +
+"                     WHERE g.gid = ? and sub.subid = ? and ses.lid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
             stm.setInt(2, subid);
@@ -87,8 +86,11 @@ public class GroupDBContext extends DBContext<Group> {
             group.setSessions(sessions);
 
             //set groupname
-            String name = sessions.get(0).getGroup().getName();
-            group.setName(name);
+//            if (sessions. != null) {
+                String name = sessions.get(0).getGroup().getName();
+                group.setName(name);
+//            }
+
             //set students 
             StudentDBContext DBStudent = new StudentDBContext();
             ArrayList<Student> students = DBStudent.getStudentsByGid(gid);
