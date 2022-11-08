@@ -37,7 +37,7 @@
                             <a class="nav-link" href="logout">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="student/timetable?stdid=${sessionScope.account.id}">Time table</a>
+                            <a class="nav-link" href="student/timetable">Time table</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>

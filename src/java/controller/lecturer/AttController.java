@@ -16,6 +16,7 @@ import model.Account;
 import model.Attandance;
 import model.Session;
 import model.Student;
+import util.DateTimeHelper;
 
 public class AttController extends BaseRoleController {
 
@@ -28,7 +29,7 @@ public class AttController extends BaseRoleController {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     /**
+    /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
@@ -62,7 +63,17 @@ public class AttController extends BaseRoleController {
         int sesid = Integer.parseInt(req.getParameter("id"));
         SessionDBContext sesDB = new SessionDBContext();
         Session ses = sesDB.get(sesid);
+
+        float a = DateTimeHelper.getDaystoCurrent(ses.getDate());
+        int flagDate = 0;
+        if (DateTimeHelper.getDaystoCurrent(ses.getDate()) > 1) {
+            flagDate = 1;
+        } else if (DateTimeHelper.getDaystoCurrent(ses.getDate()) < 0) {
+            flagDate = 1;
+        }
         req.setAttribute("ses", ses);
+        req.setAttribute("a", a);
+        req.setAttribute("flagDate", flagDate);
         req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
     }
 

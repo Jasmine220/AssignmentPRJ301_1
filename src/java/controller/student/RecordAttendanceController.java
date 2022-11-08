@@ -32,7 +32,6 @@ public class RecordAttendanceController extends BaseRoleController {
         req.setAttribute("groups", groups);
         req.setAttribute("sessions", sessions);
         req.getRequestDispatcher("/view/student/recordattendance.jsp").forward(req, resp);
-
     }
 
     @Override

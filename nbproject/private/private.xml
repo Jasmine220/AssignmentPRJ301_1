@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/github/AssignmentPRJ301_1/src/java/dal/SessionDBContext.java</file>
+            <file>file:/E:/github/AssignmentPRJ301_1/src/java/util/DateTimeHelper.java</file>
             <file>file:/E:/github/AssignmentPRJ301_1/web/view/student/recordattendance.jsp</file>
-            <file>file:/E:/github/AssignmentPRJ301_1/src/java/controller/auth/LoginController.java</file>
             <file>file:/E:/github/AssignmentPRJ301_1/src/java/controller/student/RecordAttendanceController.java</file>
+            <file>file:/E:/github/AssignmentPRJ301_1/web/view/lecturer/recordattendance.jsp</file>
         </group>
     </open-files>
 </project-private>

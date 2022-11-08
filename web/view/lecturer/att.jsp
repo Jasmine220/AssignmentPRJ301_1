@@ -90,7 +90,7 @@
                             <th>RECORD TIME</th>
                         </tr>
                     </thead>
-
+                    
                     <tbody>
                         <c:forEach items="${requestScope.ses.atts}" var="attendance" varStatus="loop">
                             <tr>
@@ -102,27 +102,56 @@
 
                                 <td class="name">${attendance.student.name}</td>
                                 <td class="image"><img src="" alt=""></td>
+                                    
                                 <td>
-                                    <input type="radio" 
+                                    <c:if test="${flagDate == 1}">
+                                        <input type="radio" disabled="true"
                                            <c:if test="${attendance.present}">
                                                checked="checked"
                                            </c:if>
                                            name="present${attendance.student.id}"
                                            >
                                     <label>Absent</label>
+                                    </c:if>
+                                    
+                                    <c:if test="${flagDate == 0}">
+                                        <input type="radio"
+                                           <c:if test="${attendance.present}">
+                                               checked="checked"
+                                           </c:if>
+                                           name="present${attendance.student.id}"
+                                           >
+                                    <label>Absent</label>
+                                    </c:if>
 
                                 </td>
                                 <td>
-                                    <input type="radio"
+                                    <c:if test="${flagDate == 1}">
+                                        <input type="radio" disabled="true"
                                            <c:if test="${!attendance.present}">
                                                checked="checked";
                                            </c:if>
                                            name="present${attendance.student.id}"
                                            >
                                     <label>Present</label>
+                                    </c:if>
+                                    <c:if test="${flagDate == 0}">
+                                        <input type="radio"
+                                           <c:if test="${!attendance.present}">
+                                               checked="checked";
+                                           </c:if>
+                                           name="present${attendance.student.id}"
+                                           >
+                                    <label>Present</label>
+                                    </c:if>
                                 </td>
                                 <td>
+                                    <c:if test="${flagDate == 1}">
+                                        <input disabled="true" type="text" name="description${attendance.student.id}" value="${attendance.description}">
+                                    </c:if>
+                                    <c:if test="${flagDate == 0}">
                                     <input type="text" name="description${attendance.student.id}" value="${attendance.description}">
+                                    </c:if>
                                 </td>
                                 <td>
                                     ${attendance.session.lecturer.name}
@@ -135,7 +164,14 @@
 
                     </tbody>
                 </table>
-                <input type="submit" value="Save"/>
+                <c:if test="${flagDate == 1}">
+                    <a href="timetable">Back</a>
+                </c:if>
+                <c:if test="${flagDate == 0}">
+                    <a href="timetable">Back</a>
+                    <input type="submit" value="Save"/>
+                </c:if>
+                
             </form>
 
         </div>
