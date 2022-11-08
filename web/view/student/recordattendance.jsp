@@ -62,7 +62,7 @@
                             <a href="?view=user">
                                 <span id="ctl00_lblLogIn" class="label label-success">${account.username}</span></a> | 
                             <!--                                                        <a href="home" class="label label-success">home</a> | -->
-                            <a href="?logout=true" class="label label-success">logout</a> 
+                            <a href="home" class="label label-success">logout</a> 
 
                         </div>
                         <ol class="breadcrumb">
@@ -131,12 +131,13 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <c:set var="noSessions" scope = "session" value="${requestScope.group.sessions.size()}">              
+                                                        </c:set>
                                                         <% int absent = 0;
                             
-                                                                %>
+                                                        %>
                                                         <c:forEach items="${requestScope.sessions}" var="ses" varStatus="loop">
                                                             <tr>
-                                                               
                                                                 <td>${loop.index+1}</td>
                                                                 <td><span class='label label-primary'>${ses.date}</span></td>
                                                                 <td>
@@ -154,7 +155,7 @@
                                                                     <c:if test="${!ses.atts.get(0).present}">
                                                                         <td>
                                                                             <font color="red">Absent</font>
-                                                                             <%absent++;%>
+                                                                            <%absent++;%>
                                                                         </td>
                                                                     </c:if>
                                                                 </c:if>
@@ -171,7 +172,7 @@
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <td colspan='7'><b>Absent</b>: 0% absent so far (0 absent on 30 total).</td>
+                                                            <td colspan='7'><b>Absent</b>: <%out.print((float)absent/30*100);%>% absent so far (<%out.print(absent);%> absent on 30 total).</td>
                                                         </tr>
                                                     </tfoot> 
                                                 </table>

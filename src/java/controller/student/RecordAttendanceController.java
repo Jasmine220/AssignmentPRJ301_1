@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import model.Account;
 import model.Group;
 import model.Session;
+import util.DateTimeHelper;
 
 /**
  *
@@ -27,6 +28,20 @@ public class RecordAttendanceController extends BaseRoleController {
         int stdid = Integer.parseInt(req.getParameter("stdid"));
         SessionDBContext sessionDB = new SessionDBContext();
         ArrayList<Session> sessions = sessionDB.getStatusForStudent(subid, stdid);
+        
+//        int flagDate[];
+//        for
+//        //use to access each session
+//        for (Session ses : sessions) {
+//            float a = DateTimeHelper.getDaystoCurrent(ses.getDate());
+//            int flagDate = 0;
+//            //record in past 
+//            if (DateTimeHelper.getDaystoCurrent(ses.getDate()) > 1) {
+//                flagDate = 1;
+//            }
+//            req.setAttribute("flagDate", flagDate);
+//        }
+//        
         GroupDBContext groupDB = new GroupDBContext();
         ArrayList<Group> groups = groupDB.getGroupsForStudent(stdid);
         req.setAttribute("groups", groups);

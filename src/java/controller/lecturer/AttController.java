@@ -66,13 +66,14 @@ public class AttController extends BaseRoleController {
 
         float a = DateTimeHelper.getDaystoCurrent(ses.getDate());
         int flagDate = 0;
+        //record in past 
         if (DateTimeHelper.getDaystoCurrent(ses.getDate()) > 1) {
             flagDate = 1;
+            //record in future
         } else if (DateTimeHelper.getDaystoCurrent(ses.getDate()) < 0) {
             flagDate = 1;
         }
         req.setAttribute("ses", ses);
-        req.setAttribute("a", a);
         req.setAttribute("flagDate", flagDate);
         req.getRequestDispatcher("../view/lecturer/att.jsp").forward(req, resp);
     }

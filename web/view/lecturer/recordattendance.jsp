@@ -65,6 +65,7 @@
                     <th rowspan="2">GROUP NAME</th>
                     <th colspan="${requestScope.group.sessions.size()}">SLOT   
                     <th rowspan="2">SUMMARY</th>
+                    <th rowspan="2">PERCENT ABSENT</th>
                 </tr>
                 <tr>
                     <c:forEach items="${requestScope.group.sessions}" var="ses" varStatus="loop">
@@ -73,28 +74,26 @@
                 </tr>
             </thead>
             <tbody>
-                <c:set var="noSessions" scope = "session" value="${requestScope.group.sessions.size()}">              
-                </c:set>
-
+               
                 <c:forEach items="${requestScope.group.students}" var="stu" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
                         <td>${stu.id}</td>
                         <td>${stu.name}</td>
                         <td>${requestScope.group.name}</td>
-                        <% int present = 0;
-                            
-                        %>
+                        <c:set var="absent" value="0"></c:set>
+                        <c:set var="noSessions" value="${requestScope.group.sessions.size()}"></c:set>
                         <c:forEach items="${requestScope.group.sessions}" var="ses">
                             <c:forEach items="${ses.atts}" var="att">
                                 <c:if test="${att.student.id eq stu.id}">
                                     <c:choose>
                                         <c:when test="${att.present}">
                                             <td>P</td>
-                                            <%present++;%>
+
                                         </c:when>
                                         <c:when test="${!att.present}">
                                             <td>A</td>
+                                            <c:set var="absent" value="${absent+1}"></c:set>
                                         </c:when> 
                                         <c:when test="${!ses.attanded}">
                                             <td>-</td>
@@ -105,9 +104,20 @@
 
                         </c:forEach>
 
-                            <td><%out.print(present + "/");
-                            %><c:out value="${noSessions}"></c:out></td> 
-                            
+                        <td>${absent}/${noSessions}</td>
+
+                        <c:if test="${absent/noSessions >= 0.2}">
+                            <td style="color:red">
+                                ${absent/noSessions*100}%
+                            </td>
+                        </c:if>
+                        <c:if test="${absent/noSessions < 0.2}">
+                            <td style="color:green">
+                                ${absent/noSessions*100}%
+                            </td>
+                        </c:if>
+
+
                     </tr>
                 </c:forEach>
             </tbody>
