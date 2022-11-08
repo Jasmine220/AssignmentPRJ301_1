@@ -114,24 +114,25 @@
                                     <td>${ses.atts.get(0).description}</td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
-                        <tfoot>
-                            <tr>
+
+
+                    </table>
+                    <div colspan='7'>
                         <b>Absent</b>:
                         <c:if test="${absent/noSessions >= 0.2}">
 
-                            <td style="color:red" colspan='7'>
+                            <div style="color:red" >
                                 ${absent/noSessions*100}%
-                            </td>
+                            </div>
                         </c:if>
                         <c:if test="${absent/noSessions < 0.2}">
-                            <td style="color:green" colspan='7'>
+                            <div style="color:green" >
                                 ${absent/noSessions*100}%
-                            </td>
+                            </div>
                         </c:if> % absent so far (${absent} absent on ${noSessions} total).
-                        </tr>
-                        </tfoot> 
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>
