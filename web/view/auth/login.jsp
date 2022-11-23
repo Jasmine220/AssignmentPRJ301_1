@@ -15,27 +15,10 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <style>
-/*        body {
-            margin: 0;
-            padding: 0;
-            background-color: #17a2b8;
-            height: 100vh;
-        }
-        #login .container #login-row #login-column #login-box {
-            margin-top: 120px;
-            max-width: 600px;
-            height: 320px;
-            border: 1px solid #9C9C9C;
-            background-color: #EAEAEA;
-        }
-        #login .container #login-row #login-column #login-box #login-form {
-            padding: 20px;
-        }
-        #login .container #login-row #login-column #login-box #login-form #register-link {
-            margin-top: -85px;
-        }*/
+
     </style>
     <body>
+
         <form action="login" method="POST">
 
             <div id="login">
@@ -67,11 +50,7 @@
                     </div>
                 </div>
             </div>
-            <!--            
-                        Username: <input type="text" name="username" placeholder="Username"/> <br/>
-                        Password: <input type="password" name="password" placeholder="Password"/> <br/>
-                        <button  type="submit">Login</button>
-            <input type="submit" value="Login">-->
+
         </form>
     </body>
 </html>
