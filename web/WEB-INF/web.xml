@@ -49,12 +49,16 @@
         <servlet-class>controller.lecturer.HomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>logoutcontrollerstudent</servlet-name>
-        <servlet-class>controller.auth.student.LogoutControllerStudent</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>homecontrollerstudent</servlet-name>
         <servlet-class>controller.student.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loginstudent</servlet-name>
+        <servlet-class>controller.student.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logoutstudent</servlet-name>
+        <servlet-class>controller.student.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListStudentController</servlet-name>
@@ -105,12 +109,16 @@
         <url-pattern>/student/timetable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>logoutcontrollerstudent</servlet-name>
+        <servlet-name>homecontrollerstudent</servlet-name>
+        <url-pattern>/student/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginstudent</servlet-name>
         <url-pattern>/student/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>homecontrollerstudent</servlet-name>
-        <url-pattern>/student/home</url-pattern>
+        <servlet-name>logoutstudent</servlet-name>
+        <url-pattern>/student/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

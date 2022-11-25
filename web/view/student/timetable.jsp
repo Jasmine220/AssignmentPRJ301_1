@@ -78,7 +78,7 @@
         <div class="nav">
             <a href="home">Home</a>
             <a href="url">${account.username}</a>
-            <a href="login">Logout</a>
+            <a href="logout">Logout</a>
             <a href="url">CAMPUS: FPTU-Hoà Lạc</a>
         </div>
         <form action="timetable" method="GET">
