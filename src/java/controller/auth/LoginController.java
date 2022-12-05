@@ -33,8 +33,8 @@ public class LoginController extends HttpServlet {
         //if account not valid
         if (account == null) {
 
-            //resp.sendRedirect("login");
-            req.getRequestDispatcher("/view/student/login.jsp").forward(req, resp);
+            resp.sendRedirect("login");
+//            req.getRequestDispatcher("/view/student/login.jsp").forward(req, resp);
 
         } else {
             req.getSession().setAttribute("account", account);
@@ -46,12 +46,10 @@ public class LoginController extends HttpServlet {
                     resp.sendRedirect("student/home");
 //                    req.getRequestDispatcher("/view/student/home.jsp").forward(req, resp);
                 } else {
-
-                    req.getRequestDispatcher("/view/lecturer/home.jsp").forward(req, resp);
+                    resp.sendRedirect("lecturer/home");
                 }
             } else {
                 resp.getWriter().println("This account doesn't have any role");
-
             }
         }
 

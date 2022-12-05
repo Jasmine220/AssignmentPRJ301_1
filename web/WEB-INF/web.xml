@@ -53,12 +53,12 @@
         <servlet-class>controller.student.HomeController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>loginstudent</servlet-name>
-        <servlet-class>controller.student.LoginController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>logoutstudent</servlet-name>
         <servlet-class>controller.student.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logoutlecturer</servlet-name>
+        <servlet-class>controller.lecturer.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListStudentController</servlet-name>
@@ -113,12 +113,12 @@
         <url-pattern>/student/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>loginstudent</servlet-name>
-        <url-pattern>/student/login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>logoutstudent</servlet-name>
         <url-pattern>/student/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutlecturer</servlet-name>
+        <url-pattern>/lecturer/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

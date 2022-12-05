@@ -81,7 +81,12 @@
         }
     </style>
     <body>
-        
+         <div class="nav">
+            <a href="home">Home</a>
+            <a href="url">${account.username}</a>
+            <a href="logout">Logout</a>
+            <a href="url">CAMPUS: FPTU-Hoà Lạc</a>
+        </div>
         <form action="timetable" method="GET">
             <div class="header">                
                 <!-- <div class="lecturer"> -->
